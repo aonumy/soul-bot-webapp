@@ -52,26 +52,25 @@
     <!-- ТВОЙ НОВЫЙ СКРИПТ С ЛОВУШКОЙ ОШИБОК -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+        // --- НОВЫЙ СКРИПТ С ИСПОЛЬЗОВАНИЕМ ГЛАВНОЙ КНОПКИ ---
+
         let tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
 
-        let supportButton = document.getElementById("support_btn");
+        // 1. Настраиваем Главную Кнопку
+        tg.MainButton.setText("Отправить сигнал в поддержку"); // Текст на кнопке
+        tg.MainButton.textColor = "#FFFFFF"; // Цвет текста (белый)
+        tg.MainButton.color = "#2481CC"; // Цвет кнопки (синий)
+        tg.MainButton.show(); // Показываем кнопку
 
-        supportButton.addEventListener("click", function(){
-            // Мы просим JavaScript "попробовать" выполнить код ниже
-            try {
-                // Добавим alert ПЕРЕД отправкой, чтобы точно знать, что мы дошли до этого места
-                alert("Пытаюсь отправить 'support_feedback'...");
+        // 2. Говорим кнопке, что делать, когда на нее нажмут
+        tg.MainButton.onClick(function() {
+            // Отправляем наши данные
+            tg.sendData("support_feedback_main_button"); // Отправим немного другой текст для чистоты эксперимента
 
-                // Команда отправки
-                tg.sendData("support_feedback");
-
-            } catch (error) {
-                // Если при попытке отправки произошла ошибка, мы её поймаем
-                // и выведем на экран в виде alert'а
-                alert("!!! ПРОИЗОШЛА ОШИБКА ПРИ ОТПРАВКЕ !!!\n\n" + error);
-            }
+            // Прячем кнопку после нажатия
+            tg.MainButton.hide();
         });
     </script>
 </body>
