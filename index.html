@@ -43,19 +43,30 @@
         <h2>Главное меню</h2>
     </div>
 
-    <button class="button">📖 Помощь</button>
-    <button class="button">💎 Подписки</button>
-    <button class="button">💡 Поддержка и идеи</button>
-    <button class="button">👑 Управление беседами</button>
-    <button class="button">❤️ Пожертвования</button>
+    <!-- Мы добавили ID к каждой кнопке, чтобы можно было их найти в JavaScript -->
+    <button id="help_btn" class="button">📖 Помощь</button>
+    <button id="subs_btn" class="button">💎 Подписки</button>
+    <button id="support_btn" class="button">💡 Поддержка и идеи</button>
+    <button id="manage_btn" class="button">👑 Управление беседами</button>
+    <button id="donate_btn" class="button">❤️ Пожертвования</button>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         let tg = window.Telegram.WebApp;
         tg.ready();
-
-        // Расширяем Web App на всю высоту
         tg.expand();
+
+        // --- НАША НОВАЯ ЛОГИКА ---
+
+        // Находим кнопку "Поддержка" по её ID
+        let supportButton = document.getElementById("support_btn");
+
+        // Говорим: "Когда на эту кнопку нажмут..."
+        supportButton.addEventListener("click", function(){
+            // "...отправь боту вот это текстовое сообщение"
+            tg.sendData("support_feedback");
+        });
+
     </script>
 </body>
 </html>
