@@ -50,27 +50,19 @@
     <button id="donate_btn" class="button">❤️ Пожертвования</button>
 
     <!-- ТВОЙ НОВЫЙ СКРИПТ С ЛОВУШКОЙ ОШИБОК -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        // --- НОВЫЙ СКРИПТ С ИСПОЛЬЗОВАНИЕМ ГЛАВНОЙ КНОПКИ ---
-
         let tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
 
-        // 1. Настраиваем Главную Кнопку
-        tg.MainButton.setText("Отправить сигнал в поддержку"); // Текст на кнопке
-        tg.MainButton.textColor = "#FFFFFF"; // Цвет текста (белый)
-        tg.MainButton.color = "#2481CC"; // Цвет кнопки (синий)
-        tg.MainButton.show(); // Показываем кнопку
+        // Просто находим кнопку
+        let supportButton = document.getElementById("support_btn");
 
-        // 2. Говорим кнопке, что делать, когда на нее нажмут
-        tg.MainButton.onClick(function() {
-            // Отправляем наши данные
-            tg.sendData("support_feedback_main_button"); // Отправим немного другой текст для чистоты эксперимента
-
-            // Прячем кнопку после нажатия
-            tg.MainButton.hide();
+        // И вешаем на нее ОДНО действие - отправить данные
+        supportButton.addEventListener("click", function(){
+            alert("Отправляю данные..."); // Наш маячок
+            tg.sendData("final_test_data");
         });
     </script>
 </body>
