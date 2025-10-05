@@ -52,21 +52,38 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+        // --- НАШ НОВЫЙ СКРИПТ ДЛЯ ПОЛНОЙ ДИАГНОСТИКИ ---
+
+        // 1. Инициализируем Web App
         let tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+        tg.ready(); // Сообщаем, что Web App загрузился
+        tg.expand(); // Растягиваем его на весь экран
 
-        // --- НАША НОВАЯ ЛОГИКА ---
-
-        // Находим кнопку "Поддержка" по её ID
+        // 2. Находим нашу кнопку
         let supportButton = document.getElementById("support_btn");
 
-        // Говорим: "Когда на эту кнопку нажмут..."
+        // 3. Вешаем на нее обработчик нажатия
         supportButton.addEventListener("click", function(){
-            // СНАЧАЛА ПОКАЖИ ЭТО ОКНО!
-            alert("Кнопка нажата!"); 
-            // А ПОТОМ отправь боту вот это текстовое сообщение
+            // 4. СОБИРАЕМ ВСЮ ДИАГНОСТИЧЕСКУЮ ИНФОРМАЦИЮ
+            const userInfo = tg.initDataUnsafe.user;
+            const debugInfo = `
+                --- ДИАГНОСТИКА ---
+                User ID: ${userInfo ? userInfo.id : 'не найден'}
+                Is Bot: ${userInfo ? userInfo.is_bot : 'не найден'}
+                First Name: ${userInfo ? userInfo.first_name : 'не найден'}
+                ---
+                Color Scheme: ${tg.colorScheme}
+                Is Version >= 6.9: ${tg.isVersionAtLeast('6.9')}
+            `;
+
+            // 5. Показываем эту информацию во всплывающем окне
+            alert(debugInfo);
+
+            // 6. Отправляем данные боту
             tg.sendData("support_feedback");
+
+            // 7. Закрываем Web App (это хорошая практика)
+            tg.close();
         });
 
     </script>
